@@ -25,4 +25,4 @@ Music played through Spotify gets more detail than iTunes (link to track and alb
 * Someone cleverer than me needs to check what "media kind" the currently playing iTunes track is, and omit incompatible types. For example, if anyone plays a radio station at the moment the Internet explodes.
 
 ## Thanks
-Thanks to [Kellen Hawley](https://github.com/beaksandclaws) for the original script which I've borrowed heavily from, and to m'colleague[Jon Hicks](http://www.hicksdesign.co.uk/) for the icons.
+Thanks to [Kellen Hawley](https://github.com/beaksandclaws) for the original script which I've borrowed heavily from, and to m'colleague [Jon Hicks](http://www.hicksdesign.co.uk/) for the icons.
