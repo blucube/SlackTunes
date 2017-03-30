@@ -1,7 +1,7 @@
 # config
 property webhookURL : "your Slack WebHook URL here!"
 property refreshRate : 5 # seconds
-property borderColor : "#6BC3D6"
+property borderColors : {"#6EC4D7", "#5AB992", "#E8A830"} # colours to use to left of post (picked at random)
 property ssidList : {"ssid_1", "ssid_2"} # list of "office SSIDs" - only post to slack if attached to one of these. leave empty to always post to slack.
 
 # globals
@@ -63,7 +63,8 @@ on idle
 								set theArtist to my replace_chars(current track's artist, "\"", "\\\"")
 								set theTitleiTunes to currentTrack
 								set theAlbum to my replace_chars(current track's album, "\"", "\\\"")
-								do shell script "curl -X POST --data-urlencode 'payload={\"username\": \"" & userName & "\",  \"attachments\": [ {\"color\": \"" & borderColor & "\", \"fallback\": \"" & my replace_chars(theTitleiTunes, "'", "\\u0027") & " - " & my replace_chars(theArtist, "'", "\\u0027") & "\", \"fields\": [ { \"value\": \"" & my replace_chars(theTitleiTunes, "'", "\\u0027") & " - " & my replace_chars(theArtist, "'", "\\u0027") & "\" }, { \"value\": \"" & my replace_chars(theAlbum, "'", "\\u0027") & "\"  } ] } ] }' " & webhookURL
+								set theColor to some item of borderColors
+								do shell script "curl -X POST --data-urlencode 'payload={\"username\": \"" & userName & "\",  \"attachments\": [ {\"color\": \"" & theColor & "\", \"fallback\": \"" & my replace_chars(theTitleiTunes, "'", "\\u0027") & " - " & my replace_chars(theArtist, "'", "\\u0027") & "\", \"fields\": [ { \"value\": \"" & my replace_chars(theTitleiTunes, "'", "\\u0027") & " - " & my replace_chars(theArtist, "'", "\\u0027") & "\\n" & my replace_chars(theAlbum, "'", "\\u0027") & "\"  } ], \"footer\": \"via iTunes\" } ] }' " & webhookURL
 							end if
 						end if
 					end tell
@@ -86,7 +87,8 @@ on idle
 								set theAlbum to my replace_chars(current track's album, "\"", "\\\"")
 								set theArtwork to current track's artwork url
 								set theUrl to current track's spotify url
-								do shell script "curl -X POST --data-urlencode 'payload={\"username\": \"" & userName & "\",  \"attachments\": [ {\"color\": \"" & borderColor & "\", \"fallback\": \"" & my replace_chars(theTitleSpotify, "'", "\\u0027") & " - " & my replace_chars(theArtist, "'", "\\u0027") & "\",  \"thumb_url\": \"" & theArtwork & "\", \"fields\": [ { \"value\": \"<" & theUrl & "|" & my replace_chars(theTitleSpotify, "'", "\\u0027") & "> - " & my replace_chars(theArtist, "'", "\\u0027") & "\" }, { \"value\": \"" & my replace_chars(theAlbum, "'", "\\u0027") & "\" } ] } ] }' " & webhookURL
+								set theColor to some item of borderColors
+								do shell script "curl -X POST --data-urlencode 'payload={\"username\": \"" & userName & "\",  \"attachments\": [ {\"color\": \"" & theColor & "\", \"fallback\": \"" & my replace_chars(theTitleSpotify, "'", "\\u0027") & " - " & my replace_chars(theArtist, "'", "\\u0027") & "\",  \"thumb_url\": \"" & theArtwork & "\", \"fields\": [ { \"value\": \"<" & theUrl & "|" & my replace_chars(theTitleSpotify, "'", "\\u0027") & "> - " & my replace_chars(theArtist, "'", "\\u0027") & "\\n" & my replace_chars(theAlbum, "'", "\\u0027") & "\" } ], \"footer\": \"via Spotify\" } ] }' " & webhookURL
 							end if
 						end if
 					end tell
